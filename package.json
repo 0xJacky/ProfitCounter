@@ -1,0 +1,65 @@
+{
+    "name": "profitcounter",
+    "version": "1.0.0",
+    "description": "利润计算器",
+    "author": "0xJacky",
+    "private": true,
+    "scripts": {
+        "lint": "vue-cli-service lint",
+        "build": "vue-cli-service electron:build --mac --win --x64",
+        "start": "vue-cli-service electron:serve",
+        "postinstall": "electron-builder install-app-deps",
+        "postuninstall": "electron-builder install-app-deps"
+    },
+    "main": "background.js",
+    "appId": "cn.jackyu.profitcounter",
+    "copyright": "Copyright © year ${author}",
+    "dependencies": {
+        "@prisma/client": "^2.13.1",
+        "ant-design-vue": "^1.7.2",
+        "caminte": "^0.4.1",
+        "core-js": "^3.6.5",
+        "decimal.js": "^10.2.1",
+        "nedb-promises": "^4.1.0",
+        "vue": "^2.6.11"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "~4.5.0",
+        "@vue/cli-plugin-eslint": "~4.5.0",
+        "@vue/cli-service": "~4.5.0",
+        "babel-eslint": "^10.1.0",
+        "babel-plugin-import": "^1.13.3",
+        "electron": "^11.1.1",
+        "electron-devtools-installer": "^3.1.0",
+        "eslint": "^6.7.2",
+        "eslint-plugin-vue": "^6.2.2",
+        "less": "^3.11.1",
+        "less-loader": "^5.0.0",
+        "vue-cli-plugin-electron-builder": "~2.0.0-rc.5",
+        "vue-template-compiler": "^2.6.11"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "parserOptions": {
+            "parser": "babel-eslint"
+        },
+        "rules": {}
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+    ]
+}
