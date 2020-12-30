@@ -47,6 +47,9 @@ export const api = {
                 $lt: new Date(new Date(params['endDate']).getTime() + 86400000)
             }
         }
+        if ('soldOut' in params && params['soldOut'] < 2) {
+            query['soldOut'] = Boolean(params['soldOut'])
+        }
         console.log(query, sort)
         return db.find(query).sort(sort)
     },

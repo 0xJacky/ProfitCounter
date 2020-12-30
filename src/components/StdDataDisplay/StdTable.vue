@@ -3,7 +3,8 @@
         <a-form layout="inline" v-if="!disable_search">
             <a-form-item
                 :key="c.dataIndex" v-for="c in searchColumns(columns)"
-                :label="c.title">
+                :label="c.title"
+            >
                 <a-input v-model="params[c.dataIndex]" v-if="c.search.type==='input'"/>
                 <a-checkbox
                     v-if="c.search.type==='checkbox'"
@@ -14,8 +15,10 @@
                     v-else-if="c.search.type==='slider'"
                     :min="c.search.min"
                     :max="c.search.max"
-                    :marks="c.mask"
+                    :marks="c.search.mask ? c.search.mask : c.mask"
+                    :defaultValue="c.search.defaultValue"
                     v-model="params[c.dataIndex]"
+                    style="width: 130px"
                 />
                 <a-select style="width: 130px" v-model="params[c.dataIndex]"
                           v-if="c.search.type==='select'">
@@ -27,7 +30,7 @@
                 <a-button type="primary" @click="get_list(); $emit('clickQuery', params)">查询</a-button>
             </a-form-item>
             <a-form-item :wrapper-col="{span:8}">
-                <a-button @click="params={}">重置</a-button>
+                <a-button @click="reload">重置</a-button>
             </a-form-item>
         </a-form>
         <div style="text-align: right" v-if="soft_delete">
@@ -99,6 +102,8 @@
 
 <script>
 import StdDatePicker from '../StdDataEntry/StdDatePicker'
+const {getCurrentWindow} = require('electron').remote;
+
 export default {
     name: 'StdTable',
     components: {
@@ -222,6 +227,10 @@ export default {
                 }
             }
         },
+        async reload() {
+            this.params = {}
+            getCurrentWindow().reload()
+        }
     }
 }
 </script>

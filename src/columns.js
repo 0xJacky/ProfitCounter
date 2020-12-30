@@ -88,19 +88,24 @@ const columns = [
         },
         sorter: true,
     }, {
-        title: '全部卖出',
+        title: '状态',
         dataIndex: 'soldOut',
         scopedSlots: {customRender: 'soldOut'},
         badge: true,
         mask: {
-            true: '全部卖出',
-            false: '有库存'
+            false: '有库存',
+            true: '全部卖出'
         },
         search: {
-            type: 'checkbox',
-            default: true,
-            labelCol: 18,
-            wrapperCol: 2
+            type: 'slider',
+            defaultValue: 2,
+            min: 0,
+            max: 2,
+            mask: {
+                0: '有库存',
+                1: '全部卖出',
+                2: '全部商品'
+            },
         },
         sorter: true
     }, {
@@ -116,7 +121,7 @@ const columns = [
         search: {
             type: 'date_picker'
         }
-    },{
+    }, {
         title: '结束时间',
         dataIndex: 'endDate',
         display: false,
