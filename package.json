@@ -20,7 +20,9 @@
         "caminte": "^0.4.1",
         "core-js": "^3.6.5",
         "decimal.js": "^10.2.1",
+        "excel": "^1.0.1",
         "nedb-promises": "^4.1.0",
+        "node-xlsx": "^0.15.0",
         "vue": "^2.6.11"
     },
     "devDependencies": {

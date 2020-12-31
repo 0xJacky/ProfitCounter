@@ -115,6 +115,12 @@ const columns = [
         datetime: true,
         sorter: true
     }, {
+        title: '更新时间',
+        dataIndex: 'updatedAt',
+        scopedSlots: {customRender: 'updatedAt'},
+        datetime: true,
+        sorter: true
+    }, {
         title: '起始时间',
         dataIndex: 'startDate',
         display: false,

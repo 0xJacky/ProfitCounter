@@ -29,6 +29,9 @@
             <a-form-item :wrapper-col="{span:8}">
                 <a-button type="primary" @click="get_list(); $emit('clickQuery', params)">查询</a-button>
             </a-form-item>
+            <a-form-item :wrapper-col="{span:8}" v-if="!pithy">
+                <a-button type="primary" @click="exportExcel" ghost>导出</a-button>
+            </a-form-item>
             <a-form-item :wrapper-col="{span:8}">
                 <a-button @click="reload">重置</a-button>
             </a-form-item>
@@ -102,7 +105,9 @@
 
 <script>
 import StdDatePicker from '../StdDataEntry/StdDatePicker'
-const {getCurrentWindow} = require('electron').remote;
+const {remote} = require('electron')
+const xlsx = require('node-xlsx')
+const fs = require('fs')
 
 export default {
     name: 'StdTable',
@@ -229,7 +234,32 @@ export default {
         },
         async reload() {
             this.params = {}
-            getCurrentWindow().reload()
+            remote.getCurrentWindow().reload()
+        },
+        async exportExcel() {
+            const result = await remote.dialog.showOpenDialog({
+                properties: ['openDirectory']
+            })
+            if (!result.canceled) {
+                console.log(result)
+                const dirpath = result.filePaths[0]
+                console.log(dirpath)
+                const showColumns = this.pithyColumns(this.columns)
+                console.log(showColumns)
+                let header = []
+                for (let showColumnsKey in showColumns) {
+                    await header.push(showColumns[showColumnsKey].title)
+                }
+                // delete 'action'
+                header.pop()
+                console.log(header)
+                const datetime = new Date().toLocaleString()
+                    .replaceAll('/', '')
+                    .replaceAll(':', '').replace(' ', '')
+                const buffer = xlsx.build([{name: "Sheet1", data: this.data_source.reduce(this.exportReducer,[header])}])
+                const filename = dirpath + '/导出' + datetime + '.xlsx'
+                await fs.writeFileSync(filename, buffer, 'binary')
+            }
         }
     }
 }

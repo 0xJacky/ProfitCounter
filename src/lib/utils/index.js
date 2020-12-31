@@ -7,5 +7,19 @@ export default {
             }
             return target
         }
+        Vue.prototype.exportReducer = (previousValue, currentValue) => {
+            let arr = [];
+
+            for (let p in currentValue) {
+                if (p === "createdAt" || p === "updatedAt" ) {
+                    arr.push(new Date(currentValue[p]).toLocaleString())
+                }
+                else if (p !== "_id") {
+                    arr.push(currentValue[p]);
+                }
+            }
+            previousValue.push(arr);
+            return previousValue;
+        }
     }
 }
