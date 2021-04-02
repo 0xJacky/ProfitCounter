@@ -66,7 +66,7 @@
       </span>
                 <span v-else-if="c.datetime" :key="c.dataIndex">
 
-        {{ text.toLocaleString() }}
+        {{ moment(text).format("yyyy-MM-DD HH:mm:ss") }}
       </span>
                 <span v-else-if="c.click" :key="c.dataIndex">
           <a href="javascript:;" @click="handleClick(record[c.click.index?c.click.index:c.dataIndex],
@@ -105,6 +105,8 @@
 
 <script>
 import StdDatePicker from '../StdDataEntry/StdDatePicker'
+import moment from "moment"
+
 const {remote} = require('electron')
 const xlsx = require('node-xlsx')
 const fs = require('fs')
@@ -155,6 +157,7 @@ export default {
             },
             params: {},
             selectedRowKeys: [],
+            moment
         }
     },
     mounted() {
@@ -253,11 +256,12 @@ export default {
                 // delete 'action'
                 header.pop()
                 console.log(header)
-                const datetime = new Date().toLocaleString()
-                    .replaceAll('/', '')
-                    .replaceAll(':', '').replace(' ', '')
-                const buffer = xlsx.build([{name: "Sheet1", data: this.data_source.reduce(this.exportReducer,[header])}])
-                const filename = dirpath + '/导出' + datetime + '.xlsx'
+                const datetime = moment().format("yyyyMMDDHHmmss")
+                const buffer = xlsx.build([{
+                    name: "Sheet1",
+                    data: this.data_source.reduce(this.exportReducer, [header])
+                }])
+                const filename = dirpath + '/' + datetime + '导出统计.xlsx'
                 await fs.writeFileSync(filename, buffer, 'binary')
             }
         }

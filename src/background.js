@@ -4,7 +4,7 @@ import {app, protocol, BrowserWindow} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, {VUEJS_DEVTOOLS} from 'electron-devtools-installer'
 import db from '@/api/datastore'
-global.db = db;
+global.db = db
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 

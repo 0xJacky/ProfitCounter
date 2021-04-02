@@ -30,7 +30,14 @@ export const api = {
             return this.get(id)
         }
 
-        return db.insert(insert)
+        let tmp = {}
+        await db.insert(insert).then(r => {
+            for(let k in r) {
+                tmp[k] = r[k]
+            }
+        })
+
+        return Promise.resolve(tmp)
     },
 
     async get_list(params = {}) {
@@ -69,15 +76,20 @@ export const api = {
         return stat
     },
 
-    get(id) {
-        return db.findOne({_id: id})
+    async get(id) {
+        let tmp = {}
+
+        await db.findOne({_id: id}).then(r => {
+            for(let k in r) {
+                tmp[k] = r[k]
+            }
+        })
+
+        console.log(tmp)
+        return Promise.resolve(tmp)
     },
 
     destroy(id) {
         return db.remove({_id: id}, {})
-    },
-
-    modify(id, data = {}) {
-        return db.update({_id: id}, data)
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "profitcounter",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "利润计算器",
     "author": "0xJacky",
     "private": true,
@@ -16,7 +16,7 @@
     "copyright": "Copyright © year ${author}",
     "dependencies": {
         "@prisma/client": "^2.13.1",
-        "ant-design-vue": "^1.7.2",
+        "ant-design-vue": "^1.7.3",
         "caminte": "^0.4.1",
         "core-js": "^3.6.5",
         "decimal.js": "^10.2.1",

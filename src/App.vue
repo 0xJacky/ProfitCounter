@@ -17,8 +17,8 @@
                         @stored="getStatistic"
                     />
                     <p style="padding: 20px 0">查询到{{ stat.count }}条数据, 成本为{{ stat.total }}元, 收入为{{ stat.soldTotal }}元, 利润为{{ stat.profit }}元</p>
-                    <div>
-                        <p style="text-align: center">Copyright © 余圳曦 2020-{{ thisYear }}</p>
+                    <div style="text-align: center">
+                        <p>Copyright © 余圳曦 2020-{{ thisYear }}</p>
                     </div>
                 </a-col>
                 <a-col :xs="1"/>
@@ -50,6 +50,7 @@ export default {
             thisYear: new Date().getFullYear(),
             columns,
             api,
+            version: process.env.VUE_APP_VERSION,
             zh_CN
         }
     },
@@ -71,12 +72,6 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     position: relative;
-
-    .container {
-        position: fixed;
-        height: 100%;
-        width: 100%;
-    }
 }
 
 </style>
